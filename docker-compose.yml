@@ -11,12 +11,10 @@ services:
       MYSQL_PASSWORD: password
 
   wordpress:
-    depends_on:
-      - db
-    image: wordpress:latest
+    build: .
+    image: wordpress-with-cli:latest
     ports:
       - "8080:80"
-    restart: always
     volumes:
       - ./wp-content:/var/www/html/wp-content
     environment:
@@ -24,6 +22,8 @@ services:
       WORDPRESS_DB_USER: user
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - db
 
 volumes:
   db_data:
